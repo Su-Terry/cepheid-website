@@ -243,12 +243,6 @@
   Hero.prototype.buildWall = function () {
     const grid = this.wallEl.querySelector(".wall-grid");
     let idx = window.__wallIndex || [];
-    // PREVIEW ONLY (fix_v22 review, not for shipping): ?legged=swap draws the replacement candidate in the
-    // Gendog224 cell; ?legged=keep (default) draws the wall as drawn. Remove with window.__wallSwap before release.
-    if (window.__wallSwap && new URLSearchParams(location.search).get("legged") === "swap") {
-      const sw = window.__wallSwap;
-      idx = idx.map(function (e) { return e.folder === "genbot_Gendog224-t1448_wall" ? sw : e; });
-    }
     const self = this;
     FAMILY_ORDER.forEach(function (fam, ci) {
       if (ci === 0) grid.appendChild(V.el("div", "grp-inline", "Training families"));

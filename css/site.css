@@ -1141,3 +1141,26 @@ main { padding-left: 0; padding-right: 0; }
 @media (max-width: 767px) {
   #bibtex pre.bib { white-space: pre-wrap; overflow-wrap: anywhere; padding-top: 38px; }
 }
+
+/* mob (fix_v22 mobile round): phones and touch screens only; desktop (>= 768 px with a mouse) is untouched.
+   Fix 1: on touch screens a vertical swipe passes through every panel that is not an active 3D viewer. Explore's
+   viewers keep 3D control after a tap: js/viewer.js touchGuard marks the wrapper .active, and its .view then keeps
+   touch-action: none from the base .view rule. */
+@media (pointer: coarse) {
+  .scrolly .view, #method .view, #contrib .view, .tap-to-rotate:not(.active) .view { touch-action: pan-y; }
+}
+/* Option 0: the designed phone wall, five rows (families) x two cells, all on screen while pinned. The hero v11 global
+   gaps (.wall-grid 12 px, .wcol 10 px) made the two cells wrap to full width; the original 4 px gaps are restored and the
+   cells are shortened so the bottom row clears the scroll cue.
+   Fix 2: shorter pinned ranges on phones: hero 360 -> 240 vh, DAVIS (.film) 320 -> 200 vh, Isaac (.film-robot) 240 -> 160 vh. */
+@media (max-width: 767px) {
+  .wall-grid { gap: 4px; }
+  .wcol { gap: 4px; }
+  .scrolly .wcol { flex: 0 0 auto; }   /* rows packed from the top, not stretched over the stage */
+  .wcell { height: calc((100vh - 45px - 400px) / 5); }
+  .scrolly .step-hero { min-height: 66.667vh; }
+  .scrolly .step-long { min-height: 106.667vh; }
+  .scrolly .step[data-step="labels"] { min-height: 66.667vh; }
+  .film { min-height: 200vh; }
+  .film-robot { min-height: 160vh; }
+}
