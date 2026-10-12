@@ -1,0 +1,46 @@
+{
+ "family": "dt4d",
+ "unit": "elkML/elkML_Idle1@54",
+ "kind": "pair (the contributions section: H, R before/after s-hat, and H vs the completion)",
+ "frames": {
+  "source": 51,
+  "dt": 5,
+  "unit": "frame index"
+ },
+ "densities": [
+  {
+   "key": "2",
+   "n_obs": 60,
+   "s_hat": 0.00258760551845763,
+   "normalizer": 2.1539812684059143
+  }
+ ],
+ "chosen_by": "scale_story rule in wall_manifest.json (motion-matched across the five families)",
+ "residual_note": "Section 3 draws R = F - H on frame 1 (F = gt, H = harmonic_2) under one common magnification, then R / (s_hat * normalizer); s_hat is in the model's units and normalizer converts it to the clip's units",
+ "source": "the wall clip's own completion of this frame (same mask, xm2_unified, k = 8, 30 ODE steps)",
+ "checkpoint": "xm2_unified",
+ "k": 8,
+ "ode_steps": 30,
+ "graph": "per-clip geodesic graph (geo)",
+ "N": 3000,
+ "T": 2,
+ "clip_kind": "pair",
+ "topology": "faces",
+ "field_encoding": "absolute",
+ "n_faces": 6046,
+ "n_edges": 0,
+ "layout": {
+  "mesh.bin": "float32 rest [N,3] then uint32 faces [F,3]",
+  "obs_<key>.bin": "uint32 [n_obs]",
+  "FIELD": "float32 translation [T,3] then float16 residual [T,N,3]; value[t,v] = translation[t] + residual[t,v]",
+  "gt.bin": "FIELD: ground-truth displacement from the rest vertices",
+  "src.bin": "FIELD: each step's source-frame displacement (sequences only)",
+  "harmonic_<key>.bin / ours_<key>.bin": "FIELD of (method - gt); method displacement = gt + value",
+  "byte_order": "little-endian, no header"
+ },
+ "float16_max_abs_rounding": {
+  "gt": 3.036904240194538e-05,
+  "harmonic_2": 3.078543090428987e-05,
+  "ours_2": 3.0391259538520288e-05
+ }
+}

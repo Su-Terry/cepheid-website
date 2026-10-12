@@ -1,0 +1,5 @@
+/* fix_v22: the Method (Amplitude Recovery) legged panel uses Gendog224, the hero wall's legged clip, instead of
+   Genhumanoid124 (23 parts that touch none of the others). Replaces that one entry of window.__storyIndex. */
+(function () { var e = {"folder": "genbot_Gendog224-f1514_pair", "base": "assets_story2/", "family": "genbot", "tab": "Legged", "source": "the wall clip's own completion of this frame (same mask, xm2_unified, k = 8, 30 ODE steps)", "wall": null, "frames": {"source": 1514, "dt": 20, "unit": "frame index"}, "stored_graph_long": null, "densities": [{"key": "2", "n_obs": 82, "s_hat": 0.004276743488350427, "normalizer": 1.0}], "kind": "pair", "N": 4114, "T": 2, "topology": "faces", "n_faces": 8096, "n_edges": 0, "keys": ["2"], "n_obs": {"2": 82}, "has_src": false, "has_graph_idx": false, "methods": ["harmonic"], "units": "m", "up": "z", "camera": null, "extras": [], "story_order": null};
+  var i = (window.__storyIndex || []).findIndex(function (x) { return x.family === 'genbot'; });
+  if (i >= 0) window.__storyIndex[i] = e; })();

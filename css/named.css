@@ -1,0 +1,13 @@
+/* named build: author block and the Code button */
+.quicklinks a.soon { opacity: .55; cursor: default; }
+.quicklinks a.soon:hover { transform: none; border-color: var(--line, currentColor); }
+@media (max-width: 767px) { .affils .af { white-space: normal; display: block; margin-right: 0; } }
+/* hero fix: the affiliation line made the title block 27 px taller, which dropped one hero-wall row at scroll 0
+   (story.js row fit). Desktop only: take the same ~27 px back from the author/affiliation/button spacing. */
+@media (min-width: 768px) {
+  .title-band .authorblock { margin-top: 7px; }
+  .title-band .authors sup, .title-band .affils sup { line-height: 0; }
+  .title-band .affils { margin-top: 2px !important; line-height: 1.25; }
+  .title-band .title-links { margin-top: 8px; }
+  .title-band .quicklinks a { padding-top: 6px; padding-bottom: 6px; }
+}

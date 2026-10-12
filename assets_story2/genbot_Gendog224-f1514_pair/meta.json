@@ -1,0 +1,68 @@
+{
+ "family": "genbot",
+ "unit": "Gendog224@1448",
+ "kind": "pair (Section 3: the scale story)",
+ "frames": {
+  "source": 1514,
+  "dt": 20,
+  "unit": "frame index"
+ },
+ "densities": [
+  {
+   "key": "2",
+   "n_obs": 82,
+   "s_hat": 0.004276743488350427,
+   "normalizer": 1.0
+  }
+ ],
+ "chosen_by": "scale_story rule in wall_manifest.json (motion-matched across the five families); legged swapped to the wall's Gendog224, frame closest to the window centre (none inside)",
+ "residual_note": "Section 3 draws R = F - H on frame 1 (F = gt, H = harmonic_2) under one common magnification, then R / (s_hat * normalizer); s_hat is in the model's units and normalizer converts it to the clip's units",
+ "source": "the wall clip's own completion of this frame (same mask, xm2_unified, k = 8, 30 ODE steps)",
+ "checkpoint": "xm2_unified",
+ "k": 8,
+ "ode_steps": 30,
+ "graph": "the loader's own",
+ "N": 4114,
+ "T": 2,
+ "clip_kind": "pair",
+ "topology": "faces",
+ "field_encoding": "absolute",
+ "n_faces": 8096,
+ "n_edges": 0,
+ "scores": {
+  "2": {
+   "harmonic": {
+    "err_over_F": 0.11871402032805421,
+    "mean_of_steps": 0.11871402032805421,
+    "per_step": [
+     0.11871402032805421
+    ],
+    "n_free": 4032
+   }
+  }
+ },
+ "score_headline": "err_over_F",
+ "score_definition": "err/|F| over the scored unobserved vertices. err_over_F = sum over steps and vertices of |pred-F| over sum of |F| (ratio of aggregates); mean_of_steps = mean over steps of the per-step ratio. One step: frame 1 against the zero source frame 0.",
+ "layout": {
+  "mesh.bin": "float32 rest [N,3] then uint32 faces [F,3]",
+  "obs_<key>.bin": "uint32 [n_obs]",
+  "FIELD": "float32 translation [T,3] then float16 residual [T,N,3]; value[t,v] = translation[t] + residual[t,v]",
+  "gt.bin": "FIELD: ground-truth displacement from the rest vertices",
+  "src.bin": "FIELD: each step's source-frame displacement (sequences only)",
+  "harmonic_<key>.bin / ours_<key>.bin": "FIELD of (method - gt); method displacement = gt + value",
+  "byte_order": "little-endian, no header"
+ },
+ "float16_max_abs_rounding": {
+  "gt": 5.8902427554130554e-05,
+  "harmonic_2": 6.400508573278785e-05
+ },
+ "bytes_gate": {
+  "rule": "err/|F| recomputed from the decoded files within 0.1% of the float64 score",
+  "relative_deviation": {
+   "harmonic_2": {
+    "err_over_F": -1.1213785807819298e-05,
+    "mean_of_steps": -1.1213785807702397e-05
+   }
+  }
+ }
+}

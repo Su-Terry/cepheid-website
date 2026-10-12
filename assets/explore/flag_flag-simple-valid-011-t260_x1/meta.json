@@ -1,0 +1,28 @@
+{
+ "family": "flag",
+ "tab": "Cloth",
+ "up": "y",
+ "camera": {
+  "up": [
+   0.0,
+   1.0,
+   0.0
+  ],
+  "dir": [
+   0.0,
+   0.0,
+   1.0
+  ]
+ },
+ "vmax": 0.23067438025973155,
+ "display": "flag mesh as stored",
+ "N": 1579,
+ "T": 100,
+ "n_faces": 3028,
+ "topology": "faces",
+ "layout": {
+  "mesh.bin": "float32 rest [N,3] then uint32 faces [F,3]",
+  "<method>.bin": "FIELD (float32 translation [T,3] then float16 residual [T,N,3]) of position - rest",
+  "obs.bin": "uint32 [n_obs]"
+ }
+}

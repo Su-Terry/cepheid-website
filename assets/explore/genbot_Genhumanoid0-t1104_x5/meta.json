@@ -1,0 +1,28 @@
+{
+ "family": "genbot",
+ "tab": "Legged",
+ "up": "z",
+ "camera": {
+  "up": [
+   0.4082040559113581,
+   -0.40820405591135817,
+   0.8165408118857462
+  ],
+  "dir": [
+   -0.5773815451999802,
+   0.5773815451999803,
+   0.5772877120855479
+  ]
+ },
+ "vmax": 0.05511114844157669,
+ "display": "GenBot1K template mesh as stored (body frame)",
+ "N": 3318,
+ "T": 100,
+ "n_faces": 6560,
+ "topology": "faces",
+ "layout": {
+  "mesh.bin": "float32 rest [N,3] then uint32 faces [F,3]",
+  "<method>.bin": "FIELD (float32 translation [T,3] then float16 residual [T,N,3]) of position - rest",
+  "obs.bin": "uint32 [n_obs]"
+ }
+}

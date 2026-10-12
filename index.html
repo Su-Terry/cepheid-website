@@ -1,0 +1,251 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Cepheid: Decoupling Scale from Structure for Cross-Family Motion Completion</title>
+<script>(function () {
+  // light by default (whatever the system setting); dark only from the header toggle (this session) or ?theme=dark
+  var t = null;
+  try { t = sessionStorage.getItem("theme"); } catch (e) { t = null; }
+  if (t !== "dark" && t !== "light") t = "light";
+  var m = /[?&]theme=(dark|light)\b/.exec(location.search);
+  if (m) t = m[1];
+  document.documentElement.setAttribute("data-theme", t);
+})();
+window.__build = "b39f0763dc";</script>
+<link rel="stylesheet" href="vendor/katex/katex.min.css?v=b39f0763dc">
+<link rel="stylesheet" href="css/site.css?v=b39f0763dc&amp;a=bib1">
+<link rel="stylesheet" href="assets_ft3b/ft3b.css?v=b39f0763dc&amp;a=ft3b2">
+<link rel="stylesheet" href="css/named.css?v=b39f0763dc&amp;a=nm2">
+</head>
+<body>
+<canvas id="stage" aria-hidden="true"></canvas>
+
+<header class="topbar">
+  <a class="topbar-title" href="#title" style="text-decoration:none"><svg class="mark" viewBox="0 0 18 18" aria-hidden="true"><circle cx="3" cy="9" r="1.6" fill="currentColor" opacity=".45"/><circle cx="8" cy="9" r="2" fill="currentColor" opacity=".7"/><rect x="11.5" y="6.5" width="6" height="5" rx="2.5" fill="var(--accent)"/></svg>Cepheid</a>
+  <nav class="topnav" aria-label="Sections">
+    <a href="#abstract">Abstract</a><a href="#applications">Applications</a><a href="#overview">Method</a><a href="#explore">Explore</a><a href="#bibtex">BibTeX</a>
+  </nav>
+  <span class="topbar-actions">
+    <button type="button" class="theme-toggle" aria-label="Switch between light and dark">
+      <svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><circle cx="8" cy="8" r="6.2" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M8 1.8a6.2 6.2 0 0 1 0 12.4z" fill="currentColor"/></svg>
+    </button>
+    <a class="skip" href="#explore">Skip to Explore</a>
+  </span>
+  <span class="navprog" aria-hidden="true"></span>
+</header>
+
+<section id="title" class="title-band">
+    <div class="title-inner">
+  <h1 class="title"><span class="l1"><span class="wm">Cepheid</span>: Decoupling Scale from Structure</span><br class="br-d"> <span class="l2">for Cross‑Family Motion Completion</span></h1>
+  <div class="title-links">
+  <p class="quicklinks"><a class="primary" href="#explore"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 1.5l5.6 3.2v6.6L8 14.5l-5.6-3.2V4.7z M8 1.5v13 M2.4 4.7L8 8l5.6-3.3" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></svg>Explore in 3D</a><a href="ARXIV_URL"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M4 1.5h5.5L13 5v9.5H4z M9.5 1.5V5H13" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></svg>Paper (arXiv)</a><a class="soon" aria-disabled="true"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M5.5 4L2 8l3.5 4 M10.5 4L14 8l-3.5 4" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Code (coming soon)</a><a href="#abstract">Abstract</a><a href="#bibtex">BibTeX</a></p>
+  </div>
+    <div class="authorblock">
+    <p class="authors byline"><span class="au">Chih-Hai Su<sup>1</sup></span><span class="au">Tsung-Wei Ke<sup>2</sup></span><span class="au">Yu-Lun Liu<sup>1</sup></span></p>
+    <p class="affils"><span class="af"><sup>1</sup>National Yang Ming Chiao Tung University</span><span class="af"><sup>2</sup>Department of Computer Science and Information Engineering, National Taiwan University</span></p>
+  </div>
+  </div>
+</section>
+
+<section id="story" class="scrolly" data-mode="wall">
+  <div class="sticky">
+    <div class="wall">
+      <div class="hero-head">
+        <h1 class="hero-title">Sparse-to-Dense Mesh Motion Without Skeletons or Templates</h1>
+        <p class="hero-line">Predict full surface motion from sparse observations without skeletons, templates, registration, or cross-mesh correspondence across distinct geometry families.</p>
+      </div>
+      <div class="wall-groups">
+        <div class="grp grp-train">Training families</div>
+        <div class="grp grp-held">Held out · zero-shot</div>
+      </div>
+      <div class="wall-grid"></div>
+            <div class="wall-rule">Held-out clips from each family's evaluation set<span> · showing 2 per family</span></div>
+    </div>
+    <p class="wall-error" role="alert" hidden></p>
+    <div class="wall-loading" role="status" aria-live="polite"><span class="bar"><span></span></span><span class="txt">loading</span></div>
+    <button type="button" class="scroll-cue" aria-label="Scroll to the first step">Scroll
+      <svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><path d="M3 6l5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </button>
+  </div>
+  <div class="steps">
+    <div class="step step-hero" data-step="hero"></div>
+    <div class="step step-long" data-step="reveal"></div>
+    <div class="step" data-step="labels"></div>
+  </div>
+</section>
+
+<section class="sec abstract-sec" id="abstract">
+  <p class="label">Abstract</p>
+    <p class="abstract">Sparse-to-dense motion completion recovers dense mesh motion from sparse vertex displacements. Residual priors trained on one geometry family frequently fail to beat parameter-free harmonic extension off-family. Moreover, cross-family training meets a scaling barrier: residual amplitude varies by more than an order of magnitude across geometry families and collapses as observations become denser. Since this scale depends on unknown target motion, it cannot be measured directly at test time. We decouple residual structure from physical scale by learning a dimensionless prior, estimating amplitude from observables and a lightweight correction fitted only on training sources. Our unified model surpasses harmonic extension across all evaluated families, including unseen cloth and legged bodies, without skeletons, registration, or cross-mesh correspondence. The same prior applies without retraining to point-tracked animal video and a robot grasping a soft body.</p>
+</section>
+
+<section id="applications" class="apps-sec" aria-label="Applications">
+  <div class="film film-robot" data-kind="sim" aria-label="Robot">
+    <div class="film-stage">
+      <div class="film-top">
+        <div class="film-titles"><h2 class="headline film-head">Zero-Shot Applications</h2><p class="film-block">Robot</p></div>
+      <div class="film-switch">
+        <button type="button" class="film-prev" aria-label="Previous">
+          <svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><path d="M10 3L5 8l5 5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <div class="film-tabs" role="tablist" aria-label="Robot"></div>
+        <button type="button" class="film-next" aria-label="Next">
+          <svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><path d="M6 3l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+      </div>
+      </div>
+      <div class="film-main"><img class="fa" alt="" decoding="async"></div>
+      <div class="film-legend" data-for="sim"><span class="dot rob"></span>8 points on the robot<span class="dot pay"></span>0 on the payload</div>
+      <div class="film-strip"><div class="film-track"></div></div>
+      <p class="film-caption" data-for="isaac">In Isaac Lab, Franka lifts a soft bar; from four base and four hand points, the frozen model completes the unobserved object's motion.</p>
+      <p class="film-caption" data-for="newton" hidden>In Newton simulator, Franka carries a sagging bar; from four base and four hand points, the frozen model completes the unobserved object's motion.</p>
+    </div>
+  </div>
+  <div class="film film-video" data-kind="davis" aria-label="Video">
+    <div class="film-stage">
+      <div class="film-top">
+        <div class="film-titles"><p class="film-block">Video</p></div>
+      <div class="film-switch">
+        <button type="button" class="film-prev" aria-label="Previous">
+          <svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><path d="M10 3L5 8l5 5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <div class="film-tabs" role="tablist" aria-label="Video"></div>
+        <button type="button" class="film-next" aria-label="Next">
+          <svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><path d="M6 3l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+      </div>
+      </div>
+      <div class="film-main"><img class="fa" alt="" decoding="async"></div>
+      <div class="film-legend" data-for="davis">Input video | Motion 3-to-4 (reference) | Ours (2% of vertices observed)</div>
+      <div class="film-strip"><div class="film-track"></div></div>
+      <p class="film-caption" data-for="davis">Ours observes 2% of the vertices of a video-to-4D reconstruction (<a href="https://github.com/Inception3D/Motion324" target="_blank" rel="noopener">Motion 3-to-4</a>) and completes the rest; the middle panel is that reconstruction, shown for reference, not ground truth.</p>
+    </div>
+  </div>
+  <div class="apps-ft" aria-label="Robot, fine-tuned">
+    <div class="film-stage">
+      <div class="film-top"><div class="film-titles"><p class="film-block">Robot · Fine-tuned</p></div></div>
+      <div class="ftb-card">
+        <figure><img src="assets_ft3b/harmonic_hr.png?a=ft3b2" alt="Harmonic: per-vertex error on the arm" width="319" height="940"><figcaption>Harmonic</figcaption></figure>
+        <figure><img src="assets_ft3b/zero-shot_hr.png?a=ft3b2" alt="Zero-shot: per-vertex error on the arm" width="319" height="940"><figcaption>Zero-shot</figcaption></figure>
+        <figure><img src="assets_ft3b/fine-tuned_hr.png?a=ft3b2" alt="Fine-tuned: per-vertex error on the arm" width="319" height="940"><figcaption>Fine-tuned</figcaption></figure>
+      </div>
+      <div class="film-legend">error: low<span class="ftb-bar"></span>high<span class="dot rob"></span>3 gripper markers</div>
+      <p class="film-caption">Not zero-shot: the checkpoint fine-tuned to a fixed three-marker placement on the gripper (Appendix G). On a held-out episode, each arm is coloured by its per-vertex error, on one shared scale.</p>
+    </div>
+  </div>
+</section>
+
+<section class="sec overview-sec" id="overview" aria-label="Method overview">
+  <p class="eyebrow rv">Method</p>
+  <figure class="rv"><img class="paper-fig" src="img/fig_method.svg" width="2200" height="1100" loading="lazy" alt="Method overview"></figure>
+</section>
+
+<section id="method" class="method">
+  <h2 class="headline scale-headline">Amplitude Recovery Across Diverse Geometry Families</h2>
+  <div class="method-stage">
+    <div class="five">
+      <div class="amp-panel" aria-live="polite">
+        <p class="amp-title">Amplitude recovery</p>
+                <p class="amp-eq"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mover accent="true"><mi>s</mi><mo>^</mo></mover><mo>=</mo><msub><mi>σ</mi><mtext>obs</mtext></msub><mo>⋅</mo><mi>exp</mi><mo>⁡</mo><mo stretchy="false">(</mo><mi>b</mi><mo>+</mo><msup><mi>w</mi><mi mathvariant="normal">⊤</mi></msup><mi>z</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">\hat{s} = \sigma_{\text{obs}} \cdot \exp(b + w^\top z)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6944em;"></span><span class="mord accent"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.6944em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord mathnormal">s</span></span><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="accent-body" style="left:-0.1944em;"><span class="mord">^</span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.5945em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.03588em;">σ</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361em;"><span style="top:-2.55em;margin-left:-0.0359em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord text mtight"><span class="mord mtight">obs</span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">⋅</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mop">exp</span><span class="mopen">(</span><span class="mord mathnormal">b</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1.0991em;vertical-align:-0.25em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.02691em;">w</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8491em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">⊤</span></span></span></span></span></span></span></span><span class="mord mathnormal" style="margin-right:0.04398em;">z</span><span class="mclose">)</span></span></span></span></p>
+                <p class="amp-eq"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>R</mi><mtext>  </mtext><mo>→</mo><mtext>  </mtext><mi>R</mi><mi mathvariant="normal">/</mi><mover accent="true"><mi>s</mi><mo>^</mo></mover></mrow><annotation encoding="application/x-tex">R \;\to\; R / \hat{s}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.00773em;">R</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">→</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.00773em;">R</span><span class="mord">/</span><span class="mord accent"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.6944em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord mathnormal">s</span></span><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="accent-body" style="left:-0.1944em;"><span class="mord">^</span></span></span></span></span></span></span></span></span></span></p>
+      </div>
+      <div class="fcell"><div class="view"></div><span class="stag" aria-hidden="true"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>÷</mo><mtext> </mtext><mover accent="true"><mi>s</mi><mo>^</mo></mover></mrow><annotation encoding="application/x-tex">\div\,\hat{s}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7778em;vertical-align:-0.0833em;"></span><span class="mord">÷</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord accent"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.6944em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord mathnormal">s</span></span><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="accent-body" style="left:-0.1944em;"><span class="mord">^</span></span></span></span></span></span></span></span></span></span></span><div class="flabel">Animal · DT4D</div></div>
+      <div class="fcell"><div class="view"></div><span class="stag" aria-hidden="true"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>÷</mo><mtext> </mtext><mover accent="true"><mi>s</mi><mo>^</mo></mover></mrow><annotation encoding="application/x-tex">\div\,\hat{s}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7778em;vertical-align:-0.0833em;"></span><span class="mord">÷</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord accent"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.6944em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord mathnormal">s</span></span><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="accent-body" style="left:-0.1944em;"><span class="mord">^</span></span></span></span></span></span></span></span></span></span></span><div class="flabel">Human · AMASS</div></div>
+      <div class="fcell"><div class="view"></div><span class="stag" aria-hidden="true"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>÷</mo><mtext> </mtext><mover accent="true"><mi>s</mi><mo>^</mo></mover></mrow><annotation encoding="application/x-tex">\div\,\hat{s}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7778em;vertical-align:-0.0833em;"></span><span class="mord">÷</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord accent"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.6944em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord mathnormal">s</span></span><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="accent-body" style="left:-0.1944em;"><span class="mord">^</span></span></span></span></span></span></span></span></span></span></span><div class="flabel">Robot Arm · Franka</div></div>
+      <div class="fcell"><div class="view"></div><span class="stag" aria-hidden="true"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>÷</mo><mtext> </mtext><mover accent="true"><mi>s</mi><mo>^</mo></mover></mrow><annotation encoding="application/x-tex">\div\,\hat{s}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7778em;vertical-align:-0.0833em;"></span><span class="mord">÷</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord accent"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.6944em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord mathnormal">s</span></span><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="accent-body" style="left:-0.1944em;"><span class="mord">^</span></span></span></span></span></span></span></span></span></span></span><div class="flabel">Cloth · Flag</div></div>
+      <div class="fcell"><div class="view"></div><span class="stag" aria-hidden="true"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>÷</mo><mtext> </mtext><mover accent="true"><mi>s</mi><mo>^</mo></mover></mrow><annotation encoding="application/x-tex">\div\,\hat{s}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7778em;vertical-align:-0.0833em;"></span><span class="mord">÷</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord accent"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.6944em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord mathnormal">s</span></span><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="accent-body" style="left:-0.1944em;"><span class="mord">^</span></span></span></span></span></span></span></span></span></span></span><div class="flabel">Legged Robot · GenBot1K</div></div>
+      <div class="legend scale-legend">low<span class="bar"></span>high</div>
+      <div class="amp-scrub">
+        <input type="range" min="-0.5" max="1.5" step="0.01" value="0" aria-label="Residual scale">
+        <span class="detent" aria-hidden="true"></span>
+        <span class="detent-label">amplitude recovery</span>
+      </div>
+    </div>
+    <div class="story-chip"></div>
+    <div class="story-note" hidden></div>
+  </div>
+  <div class="method-steps">
+    <div class="step mstep" data-step="true"><div class="card story-card"><h3>Residual (same scale)</h3><p>The gap between true motion and harmonic extension shows stark amplitude differences across families.</p></div></div>
+    <div class="step mstep" data-step="norm"><div class="card story-card"><h3>After amplitude recovery (÷ ŝ)</h3><p>Factoring out estimated amplitude brings residual scales much closer together across seen and held-out families.</p></div></div>
+  </div>
+</section>
+
+<section id="contrib" class="contrib" aria-label="Contributions">
+  <p class="eyebrow rv">Contributions</p>
+  <div class="contrib-grid">
+    <article class="contrib-card c-h">
+      <h3 class="contrib-title">Closed-Form Harmonic Base</h3>
+      <div class="contrib-views">
+        <figure class="cview"><div class="view"></div><figcaption><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>H</mi></mrow><annotation encoding="application/x-tex">H</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.08125em;">H</span></span></span></span></figcaption></figure>
+      </div>
+      <div class="legend contrib-legend">motion: low<span class="bar"></span>high</div>
+      <p class="contrib-text">A parameter-free graph solve with fixed observed vertices serves as the base motion and control.</p>
+    </article>
+    <article class="contrib-card c-s">
+      <h3 class="contrib-title">Amplitude Recovery and Rescaling</h3>
+      <div class="contrib-views">
+        <figure class="cview"><div class="view"></div><figcaption><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>R</mi><mo>=</mo><mi>F</mi><mo>−</mo><mi>H</mi></mrow><annotation encoding="application/x-tex">R = F - H</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.00773em;">R</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.7667em;vertical-align:-0.0833em;"></span><span class="mord mathnormal" style="margin-right:0.13889em;">F</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.08125em;">H</span></span></span></span></figcaption></figure>
+        <figure class="cview"><div class="view"></div><figcaption><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>R</mi><mi mathvariant="normal">/</mi><mover accent="true"><mi>s</mi><mo>^</mo></mover></mrow><annotation encoding="application/x-tex">R / \hat{s}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.00773em;">R</span><span class="mord">/</span><span class="mord accent"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.6944em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord mathnormal">s</span></span><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="accent-body" style="left:-0.1944em;"><span class="mord">^</span></span></span></span></span></span></span></span></span></span></figcaption></figure>
+      </div>
+      <p class="contrib-text">Dividing the raw residual by estimated amplitude yields a dimensionless target, bringing cross-family scales closer together.</p>
+    </article>
+    <article class="contrib-card c-f">
+      <h3 class="contrib-title">Base Plus Learned Residual</h3>
+      <div class="contrib-views">
+        <figure class="cview"><div class="view"></div><figcaption><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>H</mi></mrow><annotation encoding="application/x-tex">H</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.08125em;">H</span></span></span></span></figcaption></figure>
+        <figure class="cview"><div class="view"></div><figcaption><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mover accent="true"><mi>F</mi><mo>^</mo></mover><mo>=</mo><mi>H</mi><mo>+</mo><mover accent="true"><mi>s</mi><mo>^</mo></mover><mtext> </mtext><msub><mover accent="true"><mi>R</mi><mo>ˉ</mo></mover><mi>θ</mi></msub></mrow><annotation encoding="application/x-tex">\hat{F} = H + \hat{s}\,\bar{R}_\theta</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.9468em;"></span><span class="mord accent"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.9468em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord mathnormal" style="margin-right:0.13889em;">F</span></span><span style="top:-3.2523em;"><span class="pstrut" style="height:3em;"></span><span class="accent-body" style="left:-0.1667em;"><span class="mord">^</span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.7667em;vertical-align:-0.0833em;"></span><span class="mord mathnormal" style="margin-right:0.08125em;">H</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.9701em;vertical-align:-0.15em;"></span><span class="mord accent"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.6944em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord mathnormal">s</span></span><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="accent-body" style="left:-0.1944em;"><span class="mord">^</span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord accent"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8201em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord mathnormal" style="margin-right:0.00773em;">R</span></span><span style="top:-3.2523em;"><span class="pstrut" style="height:3em;"></span><span class="accent-body" style="left:-0.1667em;"><span class="mord">ˉ</span></span></span></span></span></span></span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361em;"><span style="top:-2.55em;margin-left:-0.0077em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.02778em;">θ</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span></figcaption></figure>
+        <figure class="cview"><div class="view"></div><figcaption><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>F</mi></mrow><annotation encoding="application/x-tex">F</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.13889em;">F</span></span></span></span></figcaption></figure>
+      </div>
+      <div class="legend contrib-legend">error against the ground truth: low<span class="bar"></span>high</div>
+      <p class="contrib-text">Recomposing the harmonic base with scaled flow predictions produces full motion with lower ground-truth error.</p>
+    </article>
+  </div>
+</section>
+
+<main>
+
+<section class="sec" id="explore">
+  <p class="eyebrow">Explore in 3D</p>
+  <h2 class="headline">Explore Mesh Completions</h2>
+  <p class="hint">Drag to rotate · ⌘/Ctrl + scroll to zoom</p>
+  <div class="tabs" role="tablist" id="family-tabs"></div>
+  <div id="family-card"></div>
+</section>
+
+<section class="sec" id="bibtex">
+  <p class="eyebrow">BibTeX</p>
+  <div class="card">
+    <button type="button" class="copy-bib">Copy</button>
+    <pre class="bib">@misc{su2026cepheid,
+  title  = {Cepheid: Decoupling Scale from Structure for Cross-Family Motion Completion},
+  author = {Su, Chih-Hai and Ke, Tsung-Wei and Liu, Yu-Lun},
+  year   = {2026}
+}</pre>
+  </div>
+</section>
+<div class="endmark" aria-hidden="true"><span class="dots"></span></div>
+<footer class="credits"><p>Video application, mesh placement: <a href="https://github.com/Inception3D/Motion324">Motion 3-to-4</a> (CC BY-NC-SA 4.0).</p></footer>
+
+</main>
+
+<script src="vendor/three/three.min.js?v=b39f0763dc"></script>
+<script src="vendor/three/OrbitControls.js?v=b39f0763dc"></script>
+<script src="assets/explore/index.js?v=b39f0763dc"></script>
+<script src="assets/wall/index.js?v=b39f0763dc"></script>
+<script src="assets/story/index.js?v=b39f0763dc"></script>
+<script src="assets_story2/index.js?v=b39f0763dc&amp;a=lg1"></script>
+<script src="assets_story2/method_frozen.js?v=b39f0763dc&amp;a=fz1"></script>
+<script src="js/clipdata.js?v=b39f0763dc&amp;a=par1"></script>
+<script src="js/viewer.js?v=b39f0763dc"></script>
+<script src="assets_davis4d/index.js?v=b39f0763dc&amp;a=m3n1"></script>
+<script src="js/film.js?v=b39f0763dc&amp;a=31235cb7"></script>
+<script src="assets/contrib/index.js?v=b39f0763dc"></script>
+<script src="js/contrib.js?v=b39f0763dc"></script>
+<script src="js/story.js?v=b39f0763dc&amp;a=frfit1"></script>
+<script src="js/explore5.js?v=b39f0763dc"></script>
+<script src="js/design.js?v=b39f0763dc"></script>
+<script src="js/app.js?v=b39f0763dc"></script>
+</body>
+</html>

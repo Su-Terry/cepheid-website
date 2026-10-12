@@ -1,0 +1,45 @@
+{
+ "family": "flag",
+ "unit": "8@303",
+ "kind": "pair (Section 3: the scale story)",
+ "frames": {
+  "source": 343,
+  "dt": 5,
+  "unit": "frame index"
+ },
+ "densities": [
+  {
+   "key": "2",
+   "n_obs": 32,
+   "s_hat": 0.004908538123943212,
+   "normalizer": 3.456499934196472
+  }
+ ],
+ "chosen_by": "scale_story rule in wall_manifest.json (motion-matched across the five families)",
+ "residual_note": "Section 3 draws R = F - H on frame 1 (F = gt, H = harmonic_2) under one common magnification, then R / (s_hat * normalizer); s_hat is in the model's units and normalizer converts it to the clip's units",
+ "source": "the wall clip's own completion of this frame (same mask, xm2_unified, k = 8, 30 ODE steps)",
+ "checkpoint": "xm2_unified",
+ "k": 8,
+ "ode_steps": 30,
+ "graph": "the loader's own",
+ "N": 1579,
+ "T": 2,
+ "clip_kind": "pair",
+ "topology": "faces",
+ "field_encoding": "absolute",
+ "n_faces": 3028,
+ "n_edges": 0,
+ "layout": {
+  "mesh.bin": "float32 rest [N,3] then uint32 faces [F,3]",
+  "obs_<key>.bin": "uint32 [n_obs]",
+  "FIELD": "float32 translation [T,3] then float16 residual [T,N,3]; value[t,v] = translation[t] + residual[t,v]",
+  "gt.bin": "FIELD: ground-truth displacement from the rest vertices",
+  "src.bin": "FIELD: each step's source-frame displacement (sequences only)",
+  "harmonic_<key>.bin / ours_<key>.bin": "FIELD of (method - gt); method displacement = gt + value",
+  "byte_order": "little-endian, no header"
+ },
+ "float16_max_abs_rounding": {
+  "gt": 6.0152728110551834e-05,
+  "harmonic_2": 8.595139285034331e-05
+ }
+}
