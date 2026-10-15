@@ -163,7 +163,13 @@
 				const lastPosition = new THREE.Vector3();
 				const lastQuaternion = new THREE.Quaternion();
 				const twoPI = 2 * Math.PI;
+				const yAxis = new THREE.Vector3( 0, 1, 0 );
 				return function update() {
+
+					// site patch (rot1): orbit about camera.up as it is now, not as it was at construction
+					// (Explore sets each clip's up after the controls exist; Z-up clips orbited about world Y)
+					quat.setFromUnitVectors( object.up, yAxis );
+					quatInverse.copy( quat ).invert();
 
 					const position = scope.object.position;
 					offset.copy( position ).sub( scope.target );
@@ -276,6 +282,8 @@
 				scope.domElement.removeEventListener( 'contextmenu', onContextMenu );
 				scope.domElement.removeEventListener( 'pointerdown', onPointerDown );
 				scope.domElement.removeEventListener( 'pointercancel', onPointerCancel );
+				scope.domElement.removeEventListener( 'lostpointercapture', onLostPointerCapture );   // rot2
+				window.removeEventListener( 'blur', endDrag );   // rot2
 				scope.domElement.removeEventListener( 'wheel', onMouseWheel );
 				scope.domElement.removeEventListener( 'pointermove', onPointerMove );
 				scope.domElement.removeEventListener( 'pointerup', onPointerUp );
@@ -803,7 +811,35 @@
 
 			function onPointerCancel( event ) {
 
-				removePointer( event );
+				endDrag();
+
+			}
+
+			// site patch (rot2): a drag also ends on pointercancel, lostpointercapture and window blur, the same way as
+			// on pointerup. Before, only the pointer was dropped and the move listener stayed, so plain mouse moves
+			// kept rotating after e.g. a native drag of selected text.
+			function onLostPointerCapture( event ) {
+
+				for ( let i = 0; i < pointers.length; i ++ ) if ( pointers[ i ].pointerId == event.pointerId ) return endDrag();
+
+			}
+
+			function endDrag() {
+
+				if ( pointers.length === 0 && state === STATE.NONE ) return;
+				for ( let i = 0; i < pointers.length; i ++ ) {
+
+					const id = pointers[ i ].pointerId;
+					delete pointerPositions[ id ];
+					try { if ( scope.domElement.hasPointerCapture( id ) ) scope.domElement.releasePointerCapture( id ); } catch ( e ) {}
+
+				}
+
+				pointers.length = 0;
+				scope.domElement.removeEventListener( 'pointermove', onPointerMove );
+				scope.domElement.removeEventListener( 'pointerup', onPointerUp );
+				scope.dispatchEvent( _endEvent );
+				state = STATE.NONE;
 
 			}
 
@@ -1059,6 +1095,8 @@
 			scope.domElement.addEventListener( 'contextmenu', onContextMenu );
 			scope.domElement.addEventListener( 'pointerdown', onPointerDown );
 			scope.domElement.addEventListener( 'pointercancel', onPointerCancel );
+			scope.domElement.addEventListener( 'lostpointercapture', onLostPointerCapture );   // rot2
+			window.addEventListener( 'blur', endDrag );   // rot2
 			scope.domElement.addEventListener( 'wheel', onMouseWheel, {
 				passive: false
 			} );

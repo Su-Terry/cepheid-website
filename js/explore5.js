@@ -192,6 +192,9 @@
     this.zcam = new THREE.PerspectiveCamera(30, 0.8, 0.01, 100);   // the close-up row's camera (fix_v22 A2)
     this.controls = new THREE.OrbitControls(this.camera, views);
     this.controls.enableDamping = false;
+    // rot3: a pole guard only, 1° from either pole of the clip's up axis (no flip at the poles); the camera may go
+    // below the floor, which then fades out (floorFade)
+    this.controls.minPolarAngle = THREE.MathUtils.degToRad(1); this.controls.maxPolarAngle = THREE.MathUtils.degToRad(179);
     V.touchGuard(views, this.controls);
     views.addEventListener("wheel", function (e) { if (!e.ctrlKey && !e.metaKey) e.stopImmediatePropagation(); }, { capture: true });
     const mkView = function (cell, kind, m) {
@@ -203,7 +206,7 @@
       lighting(view);
       view.fit = function (aspect) { self.fit(aspect); };
       view.mk = mkMarker(v, m === "harmonic" && kind === "error");
-      view.beforeRender = function (b) { self.placeMarker(view, b); self.light(view, self.camera, self.controls.target); };
+      view.beforeRender = function (b) { self.placeMarker(view, b); self.light(view, self.camera, self.controls.target); self.floorFade(view); };
       if (!(m === "gt" && kind === "error")) {     // every view opens the close-up of all five columns (fix_v22 r3)
         const eb = el("button", "x5-enlarge"); eb.type = "button";
         eb.innerHTML = '<svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><path d="M2 6V2h4M10 2h4v4M14 10v4h-4M6 14H2v-4" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>';
@@ -571,6 +574,29 @@
         self.floorH = lo;
         if (d) self.views.concat(self.bigOpen ? self.bigViews : []).forEach(function (v) { (v.floor || []).forEach(function (o) { o.position.addScaledVector(up, d); }); });
       }
+    });
+  };
+
+  /* ---- rot3: the floor fades out when the camera goes below it. Elevation = the camera's angle above the floor
+     plane, seen from the floor point under the orbit target (signed height along the clip's up over the horizontal
+     distance); everything drawn as floor (viewer.js marks it userData.floor: shadow and grid) is scaled linearly
+     from full at +2° to nothing at -2°, and back the same way. Alpha only: nothing moves. */
+  Explore5.prototype.floorElev = function () {
+    if (this.floorH === undefined) return 90;
+    const up = this.up, off = this.camera.position.clone().sub(this.controls.target);
+    const h = this.camera.position.dot(up) - this.floorH, horiz = off.addScaledVector(up, -off.dot(up)).length();
+    return THREE.MathUtils.radToDeg(Math.atan2(h, horiz));
+  };
+  Explore5.prototype.floorFade = function (view) {
+    const objs = [];
+    view.scene.traverse(function (o) { if (o.userData.floor && o.material) objs.push(o); });
+    if (!objs.length) return;
+    const k = THREE.MathUtils.clamp((this.floorElev() + 2) / 4, 0, 1);
+    objs.forEach(function (o) {
+      const m = o.material, u = m.uniforms && m.uniforms.uA;
+      if (o.userData.a0 === undefined) o.userData.a0 = u ? u.value : m.opacity;
+      if (u) u.value = o.userData.a0 * k; else m.opacity = o.userData.a0 * k;
+      o.visible = k > 0;
     });
   };
 
@@ -962,7 +988,7 @@
       const view = { el: v, frame: vp, scene: s.scene, key: s.key, camera: self.zcam, ready: false, body: null, bg: null,   // the viewport's own background shows
                      method: m[0], kind: "zoom", label: lab, big: true, mk: null };
       lighting(view);
-      view.beforeRender = function (b) { self.placeZoom(view, b); self.light(view, self.zcam, self.zTarget); self.cornerMask(view, b); };
+      view.beforeRender = function (b) { self.placeZoom(view, b); self.light(view, self.zcam, self.zTarget); self.cornerMask(view, b); self.floorFade(view); };
       return view;
     });
     big.appendChild(panels);
@@ -976,6 +1002,7 @@
     this.big = big; this.bigPanels = panels;
     this.bigControls = new THREE.OrbitControls(this.camera, panels);
     this.bigControls.enableDamping = false;
+    this.bigControls.minPolarAngle = THREE.MathUtils.degToRad(1); this.bigControls.maxPolarAngle = THREE.MathUtils.degToRad(179);   // rot3, as the grid
     V.touchGuard(panels, this.bigControls);
     panels.addEventListener("wheel", function (e) { if (!e.ctrlKey && !e.metaKey) e.stopImmediatePropagation(); }, { capture: true });
     // a click (not a drag) on a grid view opens the close-up; on touch screens the corner button does
