@@ -72,19 +72,19 @@
  },
  "display": {
   "n_vertices_full": 4061,
-  "n_vertices_display": 560,
-  "note": "display copy: exact values at a farthest-point subset of the completion vertices (observed ones always kept); faces contracted by graph-nearest clustering, for drawing only"
+  "n_vertices_display": 561,
+  "note": "display copy: exact values at a farthest-point subset of the completion vertices (observed ones always kept); faces contracted by graph-nearest clustering, for drawing only; every Panda link keeps >= 4 non-collinear display vertices (round 5: the 560 farthest-point vertices kept at their indices, link vertices appended)"
  },
  "hops": "uint32 graph hops (display mesh) to the nearest observed vertex; 4294967295 = unreachable",
  "trail": "uint32 display-vertex indices of the trail vertices (farthest-point sample)",
  "explanatory_example": false,
- "N": 560,
+ "N": 561,
  "T": 47,
  "clip_kind": "seq",
  "field_encoding": "absolute",
  "topology": "edges",
  "n_faces": 0,
- "n_edges": 2107,
+ "n_edges": 2112,
  "gt_vertices": "observed",
  "method_fields": "absolute",
  "layout": {
@@ -95,9 +95,9 @@
  },
  "float16_max_abs_rounding": {
   "gt": 2.1573156118392944e-05,
-  "ours_2": 3.0508555937558413e-05
+  "ours_2": 3.0297087505459785e-05
  },
- "display_rounding_over_extent": 4.803651975376349e-05,
+ "display_rounding_over_extent": 4.770355717314861e-05,
  "hero_range": [
   5,
   46

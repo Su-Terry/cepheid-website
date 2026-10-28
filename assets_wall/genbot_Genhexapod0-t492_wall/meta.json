@@ -16,7 +16,7 @@
  "start_moved": false,
  "mask_seed": 5000,
  "generator_seed": 5000,
- "graph": "the loader's own",
+ "graph": "the loader's kNN graph plus MST bridges between its connected components (fix a; same checkpoint, same observed points)",
  "frames": {
   "source": [
    492,
@@ -117,7 +117,7 @@
  },
  "float16_max_abs_rounding": {
   "gt": 6.09919760404809e-05,
-  "ours_2": 6.099646436086292e-05
+  "ours_2": 6.099499921075058e-05
  },
  "display_rounding_over_extent": 4.6323705439356605e-05
 }

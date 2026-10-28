@@ -17,7 +17,7 @@
  "start_note": "start moved from the drawn frame index 1448 to 1284 so the clip holds 60 frames",
  "mask_seed": 5001,
  "generator_seed": 5001,
- "graph": "the loader's own",
+ "graph": "the loader's kNN graph plus MST bridges between its connected components (fix a; same checkpoint, same observed points)",
  "frames": {
   "source": [
    1284,
@@ -118,7 +118,7 @@
  },
  "float16_max_abs_rounding": {
   "gt": 0.00012188878991414853,
-  "ours_2": 0.00012202197429433959
+  "ours_2": 0.00012205091005823565
  },
- "display_rounding_over_extent": 0.00013947665916945985
+ "display_rounding_over_extent": 0.00013950973406192966
 }

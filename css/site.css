@@ -1136,6 +1136,12 @@ main { padding-left: 0; padding-right: 0; }
    proportionally on narrower windows (overrides the rr rule above) */
 .film-video .film-main { width: min(var(--col), 100%); }
 .film-caption a { color: inherit; text-decoration: underline; text-underline-offset: 2px; }
+/* vid1: the Video block plays each clip as a normal <video> (js/film.js data-play="video"): not pinned, no thumbnail rail */
+.film[data-play="video"] { min-height: 0; }
+.film[data-play="video"] .film-stage { position: relative; top: auto; height: auto; overflow: visible;
+  padding-top: clamp(40px, 8vh, 88px); padding-bottom: clamp(40px, 8vh, 88px); }
+.film-main video.fv { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; display: block; background: #ffffff; }
+.film-main.switching video.fv { opacity: 0.45; transition: opacity .2s var(--ease); }
 
 /* bib: on phones the BibTeX wraps instead of clipping, and its first line starts below the Copy button (Copy copies pre.textContent, unchanged) */
 @media (max-width: 767px) {
@@ -1163,4 +1169,5 @@ main { padding-left: 0; padding-right: 0; }
   .scrolly .step[data-step="labels"] { min-height: 66.667vh; }
   .film { min-height: 200vh; }
   .film-robot { min-height: 160vh; }
+  .film[data-play="video"] { min-height: 0; }
 }
